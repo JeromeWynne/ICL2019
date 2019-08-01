@@ -12,7 +12,7 @@ rm(list = ls())
 # - Quantile-quantile plots
 
 # Generate synthetic data by sampling from a multivariate normal distribution
-N <- 200 #number of data points
+N <- 1000 #number of data points
 mu_X <- c(0, 0) # Covariate mean vector
 d <- 2 # number of features
 Sigma_XX <- matrix(c(1, 0, 0, 1), nrow=2) # Independent features
@@ -39,4 +39,20 @@ leverages <- diag(H)
 residual_variance <- (1 - H)*sigma^2 # Theoretical variance of residuals
 sigma2_hat <- sum(residuals^2) / (N - 2)
 standardized_residuals <- residuals/sqrt(sigma2_hat*(1 - leverages))
-Cooks_distances <- 
+Cooks_distances <- (standardized_residuals^2)*leverages/(d*(1 - leverages))
+plot(Cooks_distances)
+
+hist(Cooks_distances, breaks=50)
+
+inf_dp <- (Cooks_distances > quantile(Cooks_distances, 0.99))
+plot(X[!inf_dp, 1], y[!inf_dp], bg='white', pch=21)
+points(X[inf_dp, 1], y[inf_dp], bg='red', pch=21)
+
+plot(X[!inf_dp, 2], y[!inf_dp], bg='white', pch=21)
+points(X[inf_dp, 2], y[inf_dp], bg='red', pch=21)
+
+# The purpose of leverage is to identify data points that have low residual variance
+# and are therefore influential to the fit. Cook's distance is another
+# statistic that can be used to evaluate how influential a data point is.
+# Leverage and Cook's distances are not necessarily helpful for evaluating whether
+# linearity can be assumed.

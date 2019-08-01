@@ -1,0 +1,21 @@
+Faraway's comments on diagnostics (Chapter 4 of Linear Models for R):
+  > Classifies problems according to three categories:
+      - Error (assumption regarding error distn)
+      - Model (assumption regarding mean function)
+      - Unusual observations (assumptions regarding outliers)
+      
+  1. Checking error assumptions:
+    - We know the distribution of the residual under the model.
+    - Diagnostics are commonly run on residuals as though they were the error. This is because the effect of the hat matrix is small.
+    - We assume that the distribution of the residual (conditional on
+      X and y) is N(0, sigma^2(I - H)). The mean and variance are
+      not functions of y and, if H is negligible such that the
+      residual distribution is well-approximated by the error 
+      distribution, will not be functions of X either.
+      If we assume that e ~ eps and EY ~ X hat(b), then we can
+      check that the error distribution does not vary with Xhat(b).
+      If it does, then there is evidence that the model's assumptions
+      are violated. 
+      Likewise, we would need to check that the distribution of the
+      residuals does not depend on the covariate values. This
+      can be checked by plotting the residual against each covariate

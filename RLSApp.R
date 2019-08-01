@@ -55,7 +55,7 @@ for (t in 2:T_) {
 ui <- fluidPage(
   
   # App title ----
-  titlePanel(title = h1("Streaming Bayesian Linear Regression with Forgetting", align='center')),
+  titlePanel(title = h1("Streaming Bayesian Linear Regression", align='center')),
   
   # Sidebar layout with input and output definitions ----
   sidebarLayout( # takes two arguments, the outputs of sidebarPanel and mainPanel
@@ -114,7 +114,7 @@ server <- function(input, output) {
     points(betaMu[1:input$animation], col='red')
     lines( (betaMu[1:input$animation] + betaSD[1:input$animation]*1.95), col='red')
     lines( (betaMu[1:input$animation] - betaSD[1:input$animation]*1.95) , col='red')
-    legend('topright', legend=c('Hidden parameter value', 'Predicted value with 95% credible interval'),
+    legend('topright', legend=c('Hidden value', 'Predicted value with 95% credible interval'),
            fill=c('black', 'red'), cex=1.25)
   })
   
